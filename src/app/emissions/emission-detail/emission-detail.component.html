@@ -1,0 +1,360 @@
+<!-- START JUMBOTRON -->
+<div data-pages="parallax">
+  <div class="container-fluid p-l-25 p-r-25 sm-p-l-0 sm-p-r-0">
+    <div class="inner">
+      <!-- START BREADCRUMB -->
+      <ol class="breadcrumb sm-p-b-5">
+        <li class="breadcrumb-item">
+          <a [routerLink]="['/app/emissions']">Emissions Publiques</a>
+        </li>
+
+        <li class="breadcrumb-item active">Details Emission</li>
+      </ol>
+    </div>
+  </div>
+</div>
+<!-- END JUMBOTRON -->
+<pgcard [Loading]="isLoading" Maximize="false" Toggle="false" Close="false">
+  <div class="row">
+    <!-- START card -->
+    <div class="card card-transparent">
+      <div class="card-header ">
+        <div class="card-title">Emission detail</div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-5">
+            <div class="card bg-light mb-3">
+              <div
+                class="card-header"
+                style=" background-color: rgba(122, 122, 122, 0.333)"
+              >
+
+                <div style="display:flex;  justify-content: space-between ; flex-direction: row">
+                  
+                     <img style="height:50px; width:80px;" src="{{env}}uploads/{{logo}}" alt="logo">
+                    
+
+                  <h5>
+                    <b>{{ model?.emprunt?.emprunt_name }}</b>
+                  </h5>
+                </div>
+              
+                
+              </div>
+              <div class="card-body">
+                <br />
+                <div style="display:flex;  justify-content: space-between">
+                  <span class="card-title">Taux :</span>
+                  <span class="card-title">
+                    {{ model?.emprunt.taux_fixe | number: "1.2" }} %
+                  </span>
+                </div>
+                <div style="display:flex;  justify-content: space-between">
+                  <span class="card-title">Durée :</span>
+                  <span class="card-title"
+                    >{{ model?.emprunt.maturite }} ans</span
+                  >
+                </div>
+                <div style="display:flex;  justify-content: space-between">
+                  <span class="card-title">Montant :</span>
+                  <span class="card-title">
+                    {{ model?.emprunt.montant }} Millions TND</span
+                  >
+                </div>
+
+                <div style="display:flex;  justify-content: space-between">
+                  <span class="card-title">Maturité :</span>
+                  <span class="card-title">{{ date_maturite }}</span>
+                </div>
+
+                <div style="display:flex;  justify-content: space-between">
+
+                    <span class="card-title">Rating :</span>
+                    <span class="card-title">{{ model?.emprunt.rating }}</span>
+                  </div>
+
+                  <div style="width:100%;" class="social-card status">
+                      En cours
+                      <div class="circle" data-container="body" data-toggle="tooltip" title="Label">
+                        </div>
+                  </div>
+
+              </div>
+            </div>
+            
+                
+          </div>
+          <div class="col-md-5">
+            <div class="card bg-light mb-3">
+              <div
+                class="card-header"
+                style=" background-color: rgba(122, 122, 122, 0.333); text-align: center; max-height: 76px !important ;"
+              >
+                <h5 style="color:#007be8 ; margin-top: -15px !important">
+                  <b>Etat Souscriptions</b>
+                </h5>
+                <label
+                  ><i class="fa fa-clock-o" aria-hidden="true"></i> clôture dans
+                  {{ _days }} Jours {{ _hours }}:{{ _minutes }}:{{
+                    _seconds
+                  }}</label
+                >
+              </div>
+              <br />
+              <div
+                class="card-body"
+                style="height: 100%; display:flex;  justify-content: space-around ; flex-direction: row"
+              >
+                <span>
+                  <p><b>Restant</b></p>
+                  <p>
+                    {{
+                      model?.emprunt.montant - model?.montant_souscrit
+                    }}
+                    Millions TND
+                  </p>
+                  <br /><br />
+                </span>
+                <pg-progress
+                  color="primary"
+                  value="{{
+                    (model?.montant_souscrit * 100) / model?.emprunt.montant
+                  }}"
+                  thick="true"
+                  type="circle"
+                ></pg-progress>
+                <span>
+                  <p><b>Souscrit</b></p>
+                  <p>{{ model?.montant_souscrit }} Millions TND</p>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-1"></div>
+
+          <div class="col-md-5">
+            <div class="card bg-light mb-3">
+              <div
+                class="card-header"
+                style=" background-color: #007ce8b0; text-align: center;"
+              >
+                <h5><b>Documents de l'emprunt</b></h5>
+              </div>
+              <div class="card-body">
+                <br />
+                <div *ngFor="let doc of model?.docs; let i = index">
+                  <div *ngIf="i == 0">
+                    <label>Documents d'opérations</label><br />
+                  </div>
+
+                  <span *ngIf="doc.doc_type == 'operations'">
+                    <img
+                      src="assets/Apps-Pdf-icon.png"
+                      style="max-width :25px;"
+                      alt=""
+                      (click)="downloadDoc(doc.new_name)"
+                    />
+                    <span (click)="downloadDoc(doc.new_name)">
+                      {{ doc.original_name }}
+                    </span>
+                  </span>
+                </div>
+                <hr />
+
+                <div *ngFor="let doc of model?.docs; let j = index">
+                  <div *ngIf="j == 0">
+                    <label>Documents Juridiques</label><br />
+                  </div>
+                  <span *ngIf="doc.doc_type == 'juridiques'">
+                    <img
+                      src="assets/Apps-Pdf-icon.png"
+                      style="max-width :25px;"
+                      alt=""
+                      (click)="downloadDoc(doc.new_name)"
+                    />
+                    <span (click)="downloadDoc(doc.new_name)">
+                      {{ doc.original_name }}
+                    </span>
+                  </span>
+                </div>
+                <hr />
+
+                <div *ngFor="let doc of model?.docs; let k = index">
+                  <div *ngIf="k == 0">
+                    <label>Documents Comptables</label><br />
+                  </div>
+                  <span *ngIf="doc.doc_type == 'comptables'">
+                    <img
+                      src="assets/Apps-Pdf-icon.png"
+                      style="max-width :25px;"
+                      alt=""
+                      (click)="downloadDoc(doc.new_name)"
+                    />
+                    <span (click)="downloadDoc(doc.new_name)">
+                      {{ doc.original_name }}
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="col-md-5"
+            *ngIf="user?.role == 'Emetteur' && user?._id == model?.emetteur_id"
+          >
+            <div class="card bg-light mb-3">
+              <div
+                class="card-header"
+                style=" background-color: #007ce8b0; text-align: center;"
+              >
+                <h5><b>Inviter des investisseurs</b></h5>
+              </div>
+              <br />
+              <div class="card-body">
+                <form role="form" autocomplete="off" [formGroup]="form">
+                  <div
+                    class="form-group form-group-default required"
+                    [class.has-error]="
+                      form.get('receiver').invalid &&
+                      (form.get('receiver').dirty ||
+                        form.get('receiver').touched)
+                    "
+                  >
+                    <label>Emails </label>
+                    <pg-tag-control
+                      Closable
+                      (tagsChanges)="tagsChanges($event)"
+                      [emailType]="true"
+                      class="form-control"
+                      name="receiver"
+                      formControlName="receiver"
+                      required
+                    ></pg-tag-control>
+                  </div>
+                  <button
+                    type="button"
+                    class="btn btn-complete  btn-cons"
+                    (click)="send()"
+                    [disabled]="disabled"
+                  >
+                    Envoyer
+                  </button>
+                  <span *ngIf="msg"> Invitation envoyée ! </span>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-5" *ngIf="user?.role != 'Emetteur'">
+            <div class="card bg-light mb-3">
+              <div
+                class="card-header"
+                style=" background-color: #007ce8b0; text-align: center;"
+              >
+                <h5><b>Investir</b></h5>
+              </div>
+              <br />
+              <div class="card-body">
+                <div class="form-group form-group-default required">
+                  <label>Montant (en TND)</label>
+                  <input
+                    type="number"
+                    name="montant"
+                    class="form-control"
+                    [(ngModel)]="montant"
+                    id=""
+                  />
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-complete  btn-cons"
+                  (click)="investir()"
+                  [disabled]="disabled"
+                >
+                  Investir
+                </button>
+                <span *ngIf="msg"> Investissement effectué ! </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <br /><br />
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-8" *ngIf="
+          this.user._id == model?.emetteur_id && model?.souscriptions.length != 0
+        ">
+            <h4>Liste des investisseurs</h4>
+            <ngx-datatable
+              #expTable
+              class="table table-condensed"
+              [rows]="rows"
+              [columnMode]="'force'"
+              [headerHeight]="43"
+              [footerHeight]="0"
+              [rowHeight]="44"
+              [limit]="5"
+            >
+              <!-- Row Detail Template -->
+              <ngx-datatable-row-detail [rowHeight]="'auto'" #myDetailRow (toggle)="onDetailToggle($event)">
+    <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+        <table class="table table-inline m-l-40 m-r-40 m-t-10 m-b-10">
+            <tbody>
+              <tr>
+                <td>Email</td>
+                <td>{{row.email}}</td>
+              </tr>
+              <tr>
+                <td>Télephone</td>
+                <td>{{row?.tel}}</td>
+              </tr>
+         
+            </tbody>
+          </table>
+    </ng-template>
+  </ngx-datatable-row-detail>                 
+<ngx-datatable-column name="nom" prop="nom" cellClass="d-flex align-items-center">
+    <ng-template let-expanded="expanded" let-row="row" let-value="value" ngx-datatable-cell-template>
+      <a
+      class="text-black"
+      href="javascript:void(0)"
+      title="Expand/Collapse Row"
+      (click)="toggleExpandRow(row)">
+      <i class="pg" [class.pg-arrow_right]="!expanded" [class.pg-arrow_minimize]="expanded"></i>
+    </a>
+    {{value}}
+  </ng-template>
+</ngx-datatable-column>
+<ngx-datatable-column name="prénom" prop="prenom" cellClass="d-flex align-items-center">
+    <ng-template ngx-datatable-header-template let-column="column">
+      <span>{{ column.name }}</span>
+    </ng-template>
+    <ng-template let-row="row" let-value="value"ngx-datatable-cell-template>
+      {{ value }}
+    </ng-template>
+  </ngx-datatable-column>
+
+              <ngx-datatable-column name="montant" prop="montant" cellClass="d-flex align-items-center">
+                <ng-template ngx-datatable-header-template let-column="column">
+                  <span>{{ column.name }}</span>
+                </ng-template>
+                <ng-template let-row="row" let-value="value"ngx-datatable-cell-template>
+                  {{ value }}
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END card -->
+  </div>
+</pgcard>

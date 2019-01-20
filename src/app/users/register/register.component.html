@@ -1,0 +1,80 @@
+<div class="register-container full-height sm-p-t-30">
+    <div class="d-flex justify-content-center flex-column full-height ">
+
+          <img src="assets/img/logo.png" alt="logo" pgRetina src1x="assets/img/logo.png" src2x="assets/img/logo_2x.png" width="78" height="22">
+          <h3>Pages makes it easy to enjoy what matters the most in your life</h3>
+          <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. <a href="javascript:void(0)" class="text-info">Conseht</a> or <a href="javascript:void(0)" class="text-info">Flegia</a>
+          </p>
+          <form class="p-t-15" role="form" #registerForm="ngForm">
+            <div class="row">
+              <div class="col-md-6">
+                <div pgFormGroupDefault class="form-group form-group-default" [class.has-error]="fName.invalid && (fName.dirty || fName.touched)">
+                  <label>Prénom</label>
+                  <input type="text" placeholder="John" class="form-control" id="txtfname" name="txtfname" [(ngModel)]="txtfname"  #fName="ngModel" required >
+                </div>
+                <div *ngIf="fName.invalid && (fName.dirty || fName.touched)" >
+                    <label  *ngIf="fName.errors.required" class="error" >Ce champs est obligatoire.</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div pgFormGroupDefault class="form-group form-group-default" [class.has-error]="LName.invalid && (LName.dirty || LName.touched)">
+                  <label>Nom</label>
+                  <input type="text" placeholder="Smith" class="form-control" id="txtlname" name="txtlname" [(ngModel)]="txtlname"  #LName="ngModel" required>
+                </div>
+                <div *ngIf="LName.invalid && (LName.dirty || LName.touched)" >
+                    <label  *ngIf="LName.errors.required" class="error" >Ce champs est obligatoire.</label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div pgFormGroupDefault class="form-group form-group-default" [class.has-error]="password.invalid && (password.dirty || password.touched)">
+                  <label>Mot de passe</label>
+                  <input type="password"  placeholder="Entrez votre mot de passe" class="form-control" id="txtpassword" name="txtpassword" [(ngModel)]="txtpassword"  #password="ngModel" required>
+                </div>
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" >
+                    <label  *ngIf="password.errors.required" class="error" >Ce champs est obligatoire.</label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div pgFormGroupDefault class="form-group form-group-default" [class.has-error]="email.invalid && (email.dirty || email.touched)">
+                  <label>E-mail</label>
+                  <input type="email" placeholder="Entrez votre e-mail ici" class="form-control" id="txtemail" name="txtemail" [(ngModel)]="txtemail"  #email="ngModel" required>
+                </div>
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" >
+                    <label  *ngIf="email.errors.required" class="error" >Ce champs est obligatoire.</label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                  <label>Vous êtes ?</label>
+                  <div pgFormGroupDefault class="radio radio-success">
+                    <input type="radio" name="role" id="role1" [(ngModel)]="role" value="Emetteur">
+                    <label for="role1">Emetteur</label>
+                    <input type="radio"   name="role" id="role2" [(ngModel)]="role" value="Investisseur">
+                    <label for="role2">Investisseur</label>
+                  </div>
+                </div>
+            </div>
+        
+            <button (click)="register()" class="btn btn-primary btn-cons m-t-10" type="submit" [class.disabled]="registerForm.invalid">Créer un compte</button>
+          </form>
+
+    </div>
+  </div>
+  <div class=" full-width">
+    <div class="register-container m-b-10 clearfix">
+      <div class="m-b-30 sm-m-t-20 sm-p-r-15 sm-p-b-20 clearfix d-flex-md-up">
+        <div class="col-md-2 no-padding d-flex align-items-center">
+          <img src="assets/img/demo/pages_icon.png" alt="" class="" pgRetina src1x="assets/img/demo/pages_icon.png" src2x="assets/img/demo/pages_icon_2x.png" width="60" height="60">
+        </div>
+        <div class="col-md-9 no-padding d-flex align-items-center">
+          <p class="hinted-text small inline sm-p-t-10">No part of this website or any of its contents may be reproduced, copied, modified or adapted, without the prior written consent of the author, unless otherwise indicated for stand-alone materials.</p>
+        </div>
+      </div>
+    </div>
+  </div>

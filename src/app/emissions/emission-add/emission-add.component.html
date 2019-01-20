@@ -1,0 +1,125 @@
+<!-- START JUMBOTRON -->
+<div data-pages="parallax">
+  <div class="container-fluid p-l-25 p-r-25 sm-p-l-0 sm-p-r-0">
+    <div class="inner">
+      <!-- START BREADCRUMB -->
+      <ol class="breadcrumb sm-p-b-5">
+        <li class="breadcrumb-item "> <a [routerLink]="['/app/emissions/']">Emissions Publiques</a></li>
+        <li class="breadcrumb-item active">Nouvelle Emission</li>
+      </ol>
+    </div>
+  </div>
+</div>
+<!-- END JUMBOTRON -->
+
+<!-- START CARD -->
+<pgcard [Loading]="false" Maximize="false" Toggle="false" Close="false">
+  <div class="row">
+    <!-- START card -->
+    <div class="card card-transparent">
+      <div class="card-header ">
+        <div class="card-title">Nouvelle  Emission
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="card card-transparent">
+        <div class="card-body">
+          <pg-tabset tabAnimation="slide-left" Type="linetriangle" extraTabClass="no-border" extraTabContentClass="bg-white b-t b-light"
+            [SelectedIndex]="selectedStep">
+            <pg-tab>
+              <ng-template #TabHeading> <span>INFORMATIONS</span></ng-template>
+              <div class="row">
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-9">
+                  <!-- START card -->
+                  <br>
+                  <br>
+                  <div class="card card-transparent" style="margin-top: -50px">
+                    <div class="card-body">
+
+                      <app-informations #information  (modelSubmit)="navigateToEmprunt($event)"></app-informations>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex justify-content-end p-t-20 p-b-20">
+                <!--<button class="btn btn-white btn-cons pull-right" type="button" (click)="prevTab()">
+                      <span>Previous</span>
+                      </button> -->
+
+
+                <button class="btn btn-primary btn-cons pull-right" type="button" (click)="information.save()">
+                  <span>Next</span>
+                </button>
+              </div>
+            </pg-tab>
+            <pg-tab [Disabled]="disabledTabs.EMPRUNT">
+              <ng-template #TabHeading> <span>EMPRUNT</span></ng-template>
+              <app-emprunt #emprunt (updateEmission)="updateEmission($event)" [getEmissionId]="model._id"></app-emprunt>
+              <button class="btn btn-primary btn-cons pull-right" type="button" (click)="navigateToDocuments()">
+                <span>Next</span>
+              </button>
+              <button class="btn btn-white btn-cons pull-right" type="button" (click)="prevTab()">
+                <span>Previous</span>
+              </button>
+            </pg-tab>
+            <pg-tab [Disabled]="disabledTabs.DOCUMENTS">
+              <ng-template #TabHeading><span>DOCUMENTS</span></ng-template>
+              <app-documents [getEmissionId]="model._id"></app-documents>
+              <button class="btn btn-primary btn-cons pull-right" type="button" (click)="navigateToContrat()">
+                <span>Next</span>
+              </button>
+              <button class="btn btn-white btn-cons pull-right" type="button" (click)="prevTab()">
+                <span>Previous</span>
+              </button>
+
+            </pg-tab>
+            <pg-tab [Disabled]="disabledTabs.CONTRAT">
+              <ng-template #TabHeading> <span>CONTRAT</span></ng-template>
+              <app-contrat [getEmissionId]="model._id"></app-contrat>
+              <button class="btn btn-primary btn-cons pull-right" type="button" (click)="navigateToQuestions()">
+                <span>Next</span>
+              </button>
+              <button class="btn btn-white btn-cons pull-right" type="button" (click)="prevTab()">
+                <span>Previous</span>
+              </button>
+
+            </pg-tab>
+
+            <pg-tab [Disabled]="disabledTabs.QUESTIONS">
+              <ng-template #TabHeading> <span>QUESTIONS</span></ng-template>
+              <app-questions (updateEmission)="updateEmissionQuestions($event)"></app-questions>
+              <button class="btn btn-primary btn-cons pull-right" type="button" (click)="navigateToEmeteur()">
+                <span>Next</span>
+              </button>
+              <button class="btn btn-white btn-cons pull-right" type="button" (click)="prevTab()">
+                <span>Previous</span>
+              </button>
+
+            </pg-tab>
+            <pg-tab [Disabled]="disabledTabs.EMETEUR">
+              <ng-template #TabHeading> <span>EMETEUR</span></ng-template>
+              <app-emetteur [finishState]="finishState" (modelSubmit)="finish($event)" [getEmissionId]="model._id"></app-emetteur>
+              <button *ngIf="finishState" (click)="isFinished()" class="btn btn-primary btn-cons pull-right" type="button">
+                <span>Finish</span>
+              </button>
+              <button   *ngIf="!finishState"  class="btn btn-primary btn-cons pull-right" type="button" disabled>
+                <span>Finish</span>
+              </button>
+              <button class="btn btn-white btn-cons pull-right" type="button" (click)="prevTab()">
+                <span>Previous</span>
+              </button>
+
+
+            </pg-tab>
+          </pg-tabset>
+        </div>
+      </div>
+
+
+    </div>
+    <!-- END card -->
+  </div>
+</pgcard>
+<!-- END CARD -->

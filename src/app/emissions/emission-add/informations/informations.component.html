@@ -1,0 +1,93 @@
+<form role="form" autocomplete="off" [formGroup]="informationsForm" (ngSubmit)="save(informationsForm)">
+  <h4>INFORMATIONS SUR LA SOCIETE EMETRICE</h4>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group form-group-default required" [class.has-error]="informationsForm.get('raison_sociale').invalid && (informationsForm.get('raison_sociale').dirty || informationsForm.get('raison_sociale').touched)">
+        <label>Raison Sociale</label>
+        <input type="text" class="form-control" name="raison_sociale" formControlName="raison_sociale">
+      </div>
+
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group form-group-default required" [class.has-error]="informationsForm.get('site').invalid && (informationsForm.get('site').dirty || informationsForm.get('site').touched)">
+        <label>Site Web</label>
+        <input type="text" class="form-control" name="site" formControlName="site">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group form-group-default required" [class.has-error]="informationsForm.get('secteur').invalid && (informationsForm.get('secteur').dirty || informationsForm.get('secteur').touched)">
+        <label>Secteur</label>
+        <input type="text" class="form-control" name="secteur" formControlName="secteur">
+      </div>
+
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group form-group-default required" [class.has-error]="informationsForm.get('adresse').invalid && (informationsForm.get('adresse').dirty || informationsForm.get('adresse').touched)">
+        <label>Adresse</label>
+        <input type="text" class="form-control" name="adresse" formControlName="adresse">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <h6>Forme juridique:</h6>
+      <div class="radio radio-success">
+        <input type="radio" name="forme_juridique" id="forme_juridique1" formControlName="forme_juridique" value="SA">
+        <label for="forme_juridique1">SA</label>
+        <input type="radio"   name="forme_juridique" id="forme_juridique2" formControlName="forme_juridique" value="SARL">
+        <label for="forme_juridique2">SARL</label>
+        <input type="radio"  name="forme_juridique" id="forme_juridique3" formControlName="forme_juridique" value="autre">
+        <label for="forme_juridique3">Autre</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-sm-12">
+        <h6>Les statuts de la société prévoient-ils l'autorisation d'émettre des titres de créances/obligations:</h6>
+        <div class="radio radio-success">
+          <input type="radio" name="status" id="status1" formControlName="status" value="oui">
+          <label for="status1">Oui</label>
+          <input type="radio"   name="status" id="status2" formControlName="status" value="non">
+          <label for="status2">Non</label>
+       
+        </div>
+      </div>
+    </div>
+  <!-- <div class="row">
+   
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group form-group-default required" [class.has-error]="informationsForm.get('nameShort').invalid && (detailsForm.get('nameShort').dirty || detailsForm.get('nameShort').touched)">
+          <label>Name Short</label>
+          <input type="text" class="form-control" name="nameShort" formControlName="nameShort" upperCase>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group form-group-default">
+          <label>VAT</label>
+          <input type="text" class="form-control" name="vat" formControlName="vat" upperCase>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group form-group-default form-group-default-select2 required" [class.has-error]="detailsForm.get('types').invalid && (detailsForm.get('types').dirty || detailsForm.get('types').touched)">
+          <label>Types</label>
+          <pg-select style="width: 100%;" [Mode]="'multiple'" ShowSearch [PlaceHolder]="'Select company types'" formControlName="types" [NotFoundContent]="'Not found'">
+            <pg-option *ngFor="let type of types" [Label]="type.name" [Value]="type.name">
+            </pg-option>
+          </pg-select>
+        </div>
+      </div>
+    </div>
+ 
+   
+  
+-->
+</form>

@@ -1,0 +1,183 @@
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-8">
+      <h4>INFORMATIONS SUR L'EMPRUNT</h4>
+    </div>
+</div>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-4">
+      <div class="form-group form-group-default required">
+          <label>Nom de l'emprunt</label>
+          <input (ngModelChange)="onNameChange($event)" type="text" class="form-control" [(ngModel)]="emprunt.emprunt_name" name="emprunt_name">
+        </div>
+  </div>
+  <div class="col-md-4">
+    <div class="form-group form-group-default">
+        <label>Rating</label>
+        <input (ngModelChange)="onRatingChange($event)" type="text" class="form-control" [(ngModel)]="emprunt.rating" name="rating">
+      </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-4">
+      <div class="form-group form-group-default input-group required">
+          <div class="form-input-group">
+            <label>Date de clôture</label>
+            <pg-datepicker (ngModelChange)="_startDate=$event;_startValueChange()" Placeholder="Start Date" [ngModel]="_startDate" [DisabledDate]="_advance_disabledDate"></pg-datepicker>
+          </div>
+          <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fa fa-calendar"></i>
+              </span>
+          </div>
+        </div>
+  </div>
+  <div class="col-md-4">
+      <div class="form-group form-group-default input-group required">
+          <div class="form-input-group">
+            <label>Date de jouissance</label>
+            <pg-datepicker (ngModelChange)="_endDate=$event;_endValueChange()" Placeholder="End Date" [ngModel]="_endDate" [DisabledDate]="_advance_disabledDate"></pg-datepicker>
+          </div>
+          <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fa fa-calendar"></i>
+              </span>
+          </div>
+        </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-11">
+    <!-- START card -->
+    <div class="card card-transparent">
+      <div class="card-header ">
+        <div class="card-title">Montant de l'emprunt </div>
+      </div>
+      <div class="card-body">
+        <div class="col-lg-8 disable-hover-scale no-padding m-t-20">
+          <div class="bg-master m-b-10" id="slider-tooltips"></div>
+          <pg-slider (OnAfterChange)="getMontant($event)" [Marks]="marks" [Step]="1" [Min]="0" [Max]="100" [DefaultValue]="50" [Color]="'success'" Tooltip="true" TooltipForceVisiblity="true"></pg-slider>
+           
+        </div>
+      </div>
+    </div>
+    <!-- END card -->
+    <!-- START card -->
+    <div class="card card-transparent">
+      <div class="card-header ">
+        <div class="card-title">Maturité </div>
+      </div>
+      <div class="card-body">
+        <div class="col-lg-8 disable-hover-scale no-padding m-t-20">
+          <div class="bg-master m-b-10" id="slider-tooltips"></div>
+          <pg-slider (OnAfterChange)="getMaturite($event)" [Marks]="marks1" [Step]="1" [Min]="0" [Max]="20" [DefaultValue]="10" [Color]="'success'" Tooltip="true" TooltipForceVisiblity="true"></pg-slider>
+           
+        </div>
+      </div>
+    </div>
+    <!-- END card -->
+    <div class="row">
+      <div class="col-sm-5">
+          <div class="card card-transparent">
+              <div class="card-header ">
+                <div class="card-title">Modalité de remboursement</div>
+              </div>
+              <div class="card-body">
+                <div class="radio radio-success">
+                  <input type="radio" name="modalite"  id="modalite1" (change)="emitEmprunt()" [(ngModel)]="emprunt.modalite" checked value="amorti">
+                  <label for="modalite1">Amortie</label>
+                  <input type="radio"   name="modalite" id="modalite2" (change)="emitEmprunt()" [(ngModel)]="emprunt.modalite" value="infine">
+                  <label for="modalite2">Infine</label>
+                  <input type="radio"  name="modalite"  id="modalite3" (change)="emitEmprunt()" [(ngModel)]="emprunt.modalite" value="differe">
+                  <label for="modalite3">Différée</label>
+                </div>
+                
+            </div>
+      </div>
+    </div>
+      <div class="col-sm-5">
+          <div class="card card-transparent">
+              <div class="card-header">
+                <div class="card-title">Fréquence de coupons</div>
+              </div>
+              <div class="card-body">
+                <div class="radio radio-success">
+                  <input type="radio" name="frequence" id="frequence1" (change)="emitEmprunt()" [(ngModel)]="emprunt.frequence" value="trim">
+                  <label for="frequence1">Trim</label>
+                  <input type="radio" name="frequence" id="frequence2" (change)="emitEmprunt()" [(ngModel)]="emprunt.frequence" value="sem">
+                  <label for="frequence2">Sem</label>
+                  <input type="radio"  name="frequence" id="frequence3" (change)="emitEmprunt()" [(ngModel)]="emprunt.frequence" value="annuel">
+                  <label for="frequence3">Ann</label>
+                </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
+        <div class="card card-transparent">
+            
+            <div class="card-body">
+              <div class="row">
+                  <div class="col-md-2">
+                      <div class="checkbox check-info">
+                          <input (change)="checkTF()" type="checkbox" [checked]="checkboxtf" value="tf" id="tf">
+                          <label for="tf"></label>
+                      </div>
+                  </div>
+                <div class="col-md-4 text-right bg-primary padding-10">
+                    <h6 class="font-montserrat all-caps small no-margin hint-text text-white bold">Taux Fixe</h6>
+                    <h5 class="no-margin text-white">{{ tfValue | number : '1.2-2' }} %</h5>
+                </div>
+                <div class="col-md-4">
+                    <div class="btn-group btn-group-vertical">
+                        <button (click)="incerementTF()" class="btn btn-success"><i class="fa fa-plus"></i>
+                        </button>
+                        <button (click)="decrementTF()" class="btn btn-success"><i class="fa fa-minus"></i>
+                        </button>
+                      </div>
+                </div>
+              </div>
+                        
+                      
+          </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="card card-transparent">
+          
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-2">
+                  <div class="checkbox check-info">
+                      <input (change)="checkTV()" type="checkbox" [checked]="checkboxtv" value="tv" id="tv">
+                      <label for="tv"></label>
+                  </div>
+              </div>
+              <div class="col-md-4 text-right bg-primary padding-10">
+                  <h6 class="font-montserrat all-caps small no-margin hint-text text-white bold">Taux Var</h6>
+                  <h5 class="no-margin text-white">{{ tvValue | number : '1.2-2' }} %</h5>
+              </div>
+              <div class="col-md-4">
+                  <div class="btn-group btn-group-vertical">
+                      <button (click)="incerementTV()" class="btn btn-success"><i class="fa fa-plus"></i>
+                      </button>
+                      <button (click)="decrementTV()" class="btn btn-success"><i class="fa fa-minus"></i>
+                      </button>
+                    </div>
+              </div>
+            </div>
+                      
+                    
+        </div>
+    </div>
+  </div>
+</div>
+
+

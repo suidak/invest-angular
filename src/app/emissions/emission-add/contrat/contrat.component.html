@@ -1,0 +1,50 @@
+<div class="row">
+<div class="col-md-1"></div>
+<div class="col-md-3">
+  <!-- START CARD -->
+<pgcard Maximize="false" Toggle="false" Close="false" Refresh="false">
+    <!-- START card -->
+    <div class="card card-transparent">
+      <div class="card-header ">
+        <ng-template #CardTitle>CONTRAT STANDARD</ng-template>
+        <button (click)="downloadDoc()" type="button" class="btn btn-default btn-cons btn-animated from-top fa fa-arrow-down">
+            <span>
+                Télécharger ici
+            </span>
+          </button>
+        </div>
+      </div>
+          <p>Contrat standard conforme à la réglementation en vigueur</p>
+          
+</pgcard>
+</div>
+
+<div class="col-md-3">
+    <!-- START CARD -->
+  <pgcard Maximize="false" Toggle="false" Close="false" Refresh="false">
+      <!-- START card -->
+      <div class="card card-transparent">
+        <div class="card-header ">
+          <ng-template #CardTitle>CONTRAT PERSONNEL</ng-template>
+          </div>
+        </div>
+            <p>Vous souhaitez télécharger votre propore contrat</p>
+  </pgcard>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-3">
+      <pg-upload
+      Action="{{env}}emissions/upload/contrat/{{id}}"
+      [(FileList)]="fileList"
+      [Limit]="1"
+
+      required>
+      <button style="width: 100%;" class="btn btn-success btn-cons">
+        <i class="fa fa-upload m-r-10"></i><span>Parcourir</span>
+      </button>
+    </pg-upload>
+  </div>
+</div>

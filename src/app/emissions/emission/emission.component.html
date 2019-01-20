@@ -1,0 +1,60 @@
+
+<div class="card bg-light mb-3">
+    <div
+      class="card-header"
+      style=" background-color: rgba(122, 122, 122, 0.333)"
+    >
+      <div
+        style="display:flex;  justify-content: space-between ; flex-direction: row"
+      >
+      
+         <img style="height:50px; width:80px;" src="{{env}}uploads/{{em.logo}}" alt="logo">
+       
+        <h5><b>{{ em.emprunt?.emprunt_name }}</b></h5>
+      </div>
+    </div>
+    <div class="card-body">
+        <br>
+      <div style="display:flex;  justify-content: space-between">
+        <span class="card-title">Taux :</span>
+        <span class="card-title"> {{em.emprunt.taux_fixe | number :'1.2' }} % </span>
+      </div>
+      <div style="display:flex;  justify-content: space-between">
+        <span class="card-title">Durée :</span>
+        <span class="card-title">{{ em.emprunt.maturite }} ans</span>
+      </div>
+      <div style="display:flex;  justify-content: space-between">
+        <span class="card-title">Montant :</span>
+        <span class="card-title"> {{em.emprunt.montant}} MDT</span>
+      </div>
+
+      <div style="display:flex;  justify-content: space-between">
+        <span class="card-title">Maturité :</span>
+        <span class="card-title">{{ em.emprunt.dateJouissance }}</span>
+      </div>
+
+      <div>
+        <pg-progress
+          type="bar"
+          color="primary"
+          value="{{(em?.montant_souscrit*100)/em?.emprunt.montant}}"
+          thick="true"
+        ></pg-progress>
+        <div *ngIf="em?.status_cloture==true" style="width:100%;background-color: #eebec3d2;" class="social-card status" >
+            Terminé
+            
+        </div>
+        <div *ngIf="em?.status_cloture==false" style="width:100%;" class="social-card status">
+            En cours
+            <div class="circle" data-container="body" data-toggle="tooltip" title="Label">
+              </div>
+        </div>
+        <button style="width:100%"
+        class="btn btn-primary btn-cons"
+        (click)="navigate(em._id)"
+      >
+        <i class="fa fa-info"></i> Détails
+      </button>
+      </div>
+    </div>
+  </div>

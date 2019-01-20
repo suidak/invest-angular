@@ -1,0 +1,51 @@
+<h4>DOCUMENTS DE REFERENCES EMETTEUR</h4>
+<div class="row">
+<div class="col-lg-4">
+  <h5>
+    <span class="semi-bold">Notes d'opération</span>
+  </h5>
+
+  <br>
+
+  <pg-upload
+  Action="{{env}}emissions/upload/operations/{{id}}"
+  [(FileList)]="fileList1">
+  <button class="btn btn-success btn-cons">
+    <i class="fa fa-upload m-r-10"></i><span>Parcourir</span>
+  </button>
+</pg-upload>
+</div>
+
+<div class="col-lg-4">
+  <h5>
+    <span class="semi-bold">Documents Juridiques RC, Statuts</span>
+  </h5>
+  <p></p>
+  <br>
+
+  <pg-upload
+  Action="{{env}}emissions/upload/juridiques/{{id}}"
+  [(FileList)]="fileList2">
+  <button class="btn btn-success btn-cons">
+    <i class="fa fa-upload m-r-10"></i><span>Parcourir</span>
+  </button>
+</pg-upload>
+</div>
+
+<div class="col-lg-4">
+  <h5>
+    <span class="semi-bold">Documents Comptables</span>
+  </h5>
+  <p></p>
+  <br>
+
+  <pg-upload
+  Action="{{env}}emissions/upload/comptables/{{id}}"
+  [(FileList)]="fileList3">
+  <button class="btn btn-success btn-cons">
+    <i class="fa fa-upload m-r-10"></i><span>Parcourir</span>
+  </button>
+</pg-upload>
+</div>
+</div>
+<br>
